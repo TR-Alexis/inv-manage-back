@@ -1,18 +1,25 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../generated/prisma";
 import fs from "fs";
 import path from "path";
 const prisma = new PrismaClient();
 
-async function deleteAllData(orderedFileNames: string[]) {
-  const modelNames = orderedFileNames.map((fileName) => {
-    const modelName = path.basename(fileName, path.extname(fileName));
-    return modelName.charAt(0).toUpperCase() + modelName.slice(1);
-  });
+async function deleteAllData() {
+  const deleteOrder = [
+    "Sales",
+    "Purchases",
+    "ExpenseByCategory",
+    "ExpenseSummary",
+    "SalesSummary",
+    "PurchaseSummary",
+    "Expenses",
+    "Users",
+    "Products",
+  ];
 
-  for (const modelName of modelNames) {
+  for (const modelName of deleteOrder) {
     const model: any = prisma[modelName as keyof typeof prisma];
     if (model) {
-      await model.deleteMany({});
+      await model.deleteMany();
       console.log(`Cleared data from ${modelName}`);
     } else {
       console.error(
@@ -37,7 +44,7 @@ async function main() {
     "expenseByCategory.json",
   ];
 
-  await deleteAllData(orderedFileNames);
+  await deleteAllData();
 
   for (const fileName of orderedFileNames) {
     const filePath = path.join(dataDirectory, fileName);
