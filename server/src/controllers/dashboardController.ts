@@ -1,5 +1,5 @@
 import { Request, Response} from "express";
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../../generated/prisma';
 import { SalesSummary, ExpenseByCategory, ExpenseSummary } from '../../generated/prisma/browser';
 
 const prisma = new PrismaClient();
@@ -12,16 +12,16 @@ export const getDashboardMetrics = async (
         const popularProducts = await prisma.products.findMany({
             take: 15,
             orderBy: {
-                StockQuantity: "desc",
+                stockQuantity: "desc",
             },
         });
-        const salesSummary = await prisma.SalesSummary.findMany({
+        const salesSummary = await prisma.salesSummary.findMany({
             take: 5,
             orderBy: {
                 date: "desc"
             },
         });
-        const purchasesSummary = await prisma.purchasesSummary.findMany({
+        const purchasesSummary = await prisma.purchaseSummary.findMany({
             take: 5,
             orderBy: {
                 date: "desc"
