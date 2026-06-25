@@ -7,7 +7,8 @@ import morgan from "morgan";
 
 // ROUTE IMPORTS
 import { getDashboardMetrics } from "./controllers/dashboardController";
-import { getProducts } from "./controllers/productController";
+import productRoutes from "./routes/productRoutes";
+import userRoutes from "./routes/userRoutes";
 
 // CONFIGURATIONS
 dotenv.config();
@@ -27,8 +28,9 @@ app.use(
 );
 
 // ROUTES
-app.use("/dashboard", getDashboardMetrics); 
-app.use("/products", getProducts); // http://localhost:8000/products
+app.use("/dashboard", getDashboardMetrics); //fix later
+app.use("/products", productRoutes); // http://localhost:8000/products
+app.use("/users", userRoutes); // http://localhost:8000/users
 
 
 // SERVER
