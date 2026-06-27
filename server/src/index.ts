@@ -9,6 +9,7 @@ import morgan from "morgan";
 import { getDashboardMetrics } from "./controllers/dashboardController";
 import productRoutes from "./routes/productRoutes";
 import userRoutes from "./routes/userRoutes";
+import expenseRoutes from "./routes/expenseRoutes";
 
 // CONFIGURATIONS
 dotenv.config();
@@ -31,6 +32,7 @@ app.use(
 app.use("/dashboard", getDashboardMetrics); //fix later
 app.use("/products", productRoutes); // http://localhost:8000/products
 app.use("/users", userRoutes); // http://localhost:8000/users
+app.use("/expenses", expenseRoutes); // http://localhost:8000/expenses
 
 
 // SERVER
